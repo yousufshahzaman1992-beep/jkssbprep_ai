@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+httpx
+pydantic
+
+# add openai to the requirements file and install it
+echo "openai" >> requirements.txt
+pip install -r requirements.txt

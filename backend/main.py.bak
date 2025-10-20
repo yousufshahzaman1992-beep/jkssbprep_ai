@@ -1,0 +1,46 @@
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+OPENAI_KEY = os.getenv("OPENAI_API_KEY")
+
+app = FastAPI(title="JKSSB Micro-SaaS - Minimal Backend")
+
+# Allow frontend at localhost:5173 to talk to backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class MCQRequest(BaseModel):
+    topic: str
+    count: int = 5
+    difficulty: str = "medium"
+    context: str | None = None
+
+@app.get("/")
+async def root():
+    return {"message": "JKSSB micro-saas backend is running. Try POST /generate/mcq"}
+
+@app.post("/generate/mcq")
+async def generate_mcq(req: MCQRequest):
+    # mock questions so you can test without OpenAI key
+    def make_q(i):
+        return {
+            "id": i,
+            "question": f"What is a key fact about {req.topic}? (mock #{i})",
+            "options": ["Option A", "Option B", "Option C", "Option D"],
+            "answer": "Option B",
+            "explain": f"Because of reason {i} — memorize the key phrase for {req.topic}.",
+            "difficulty": req.difficulty
+        }
+
+    result = [make_q(i + 1) for i in range(max(1, min(20, req.count)))]
+    return {"request_id": "local-mock-1", "status": "ok", "tokens_used": 0, "result": result}

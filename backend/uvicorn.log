@@ -1,0 +1,16 @@
+INFO:     Will watch for changes in these directories: ['/home/shahzaman/jkssb-micro-saas/backend']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [3760] using WatchFiles
+INFO:     Started server process [3763]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+OpenAI key configured (backend)
+INFO:     127.0.0.1:57208 - "POST /generate/mcq HTTP/1.1" 500 Internal Server Error
+WARNING:  WatchFiles detected changes in 'main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [3763]
+INFO:     Started server process [4083]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
